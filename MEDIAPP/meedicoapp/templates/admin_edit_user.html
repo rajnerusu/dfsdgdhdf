@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}Edit User - Meedicoapp{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-3 mb-3">
+        {% include "_admin_sidebar.html" %}
+    </div>
+    <div class="col-lg-9">
+        <div class="card border-0 shadow-sm">
+            <div class="card-body p-4">
+                <h4 class="fw-bold mb-3"><i class="bi bi-pencil-square"></i> Edit User</h4>
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Full name</label>
+                            <input type="text" name="name" class="form-control" value="{{ target.name }}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" name="email" class="form-control" value="{{ target.email }}" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Phone</label>
+                            <input type="tel" name="phone" class="form-control" value="{{ target.phone or '' }}">
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label class="form-label">Role</label>
+                            <select name="role" class="form-select">
+                                {% for r in roles %}
+                                <option value="{{ r }}" {% if target.role == r %}selected{% endif %}>{{ r|capitalize }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-check form-switch mb-4">
+                        <input class="form-check-input" type="checkbox" name="is_active" id="is_active" {% if target.is_active %}checked{% endif %}>
+                        <label class="form-check-label" for="is_active">Account active</label>
+                    </div>
+                    <button type="submit" class="btn btn-primary"><i class="bi bi-check-lg"></i> Save Changes</button>
+                    <a href="{{ url_for('admin_users') }}" class="btn btn-outline-secondary">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

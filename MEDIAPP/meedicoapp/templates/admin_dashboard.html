@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard - Meedicoapp{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-3 mb-3">
+        {% include "_admin_sidebar.html" %}
+    </div>
+    <div class="col-lg-9">
+        <h3 class="fw-bold mb-4"><i class="bi bi-speedometer2"></i> Admin Dashboard</h3>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-3 col-6">
+                <div class="card border-0 shadow-sm text-center p-3">
+                    <h3 class="fw-bold text-primary mb-0">{{ stats.total }}</h3>
+                    <small class="text-muted">Total Appointments</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="card border-0 shadow-sm text-center p-3">
+                    <h3 class="fw-bold text-info mb-0">{{ stats.today }}</h3>
+                    <small class="text-muted">Today's Bookings</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="card border-0 shadow-sm text-center p-3">
+                    <h3 class="fw-bold text-warning mb-0">{{ stats.by_status.get('pending', 0) }}</h3>
+                    <small class="text-muted">Pending</small>
+                </div>
+            </div>
+            <div class="col-md-3 col-6">
+                <div class="card border-0 shadow-sm text-center p-3">
+                    <h3 class="fw-bold text-success mb-0">{{ stats.by_status.get('confirmed', 0) }}</h3>
+                    <small class="text-muted">Confirmed</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="row g-3 mb-4">
+            <div class="col-md-4 col-6">
+                <div class="card border-0 shadow-sm text-center p-3">
+                    <h4 class="fw-bold mb-0">{{ user_counts.get('patient', 0) }}</h4>
+                    <small class="text-muted"><i class="bi bi-people"></i> Patients</small>
+                </div>
+            </div>
+            <div class="col-md-4 col-6">
+                <div class="card border-0 shadow-sm text-center p-3">
+                    <h4 class="fw-bold mb-0">{{ user_counts.get('doctor', 0) }}</h4>
+                    <small class="text-muted"><i class="bi bi-person-badge"></i> Doctor Accounts</small>
+                </div>
+            </div>
+            <div class="col-md-4 col-6">
+                <div class="card border-0 shadow-sm text-center p-3">
+                    <h4 class="fw-bold mb-0">{{ user_counts.get('admin', 0) }}</h4>
+                    <small class="text-muted"><i class="bi bi-shield-lock"></i> Admins</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white fw-semibold d-flex justify-content-between align-items-center">
+                Recent Appointments
+                <a href="{{ url_for('admin_appointments') }}" class="btn btn-sm btn-outline-primary">View all</a>
+            </div>
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr><th>OP #</th><th>Patient</th><th>Doctor</th><th>Date</th><th>Status</th></tr>
+                    </thead>
+                    <tbody>
+                    {% for a in recent_appointments %}
+                        <tr>
+                            <td><code>{{ a.op_number }}</code></td>
+                            <td>{{ a.patient_name }}</td>
+                            <td>{{ a.doctor_name }}</td>
+                            <td>{{ a.appointment_date }} {{ a.appointment_time }}</td>
+                            <td>
+                                <span class="badge
+                                    {% if a.status == 'confirmed' %}bg-success
+                                    {% elif a.status == 'pending' %}bg-warning text-dark
+                                    {% elif a.status == 'cancelled' %}bg-secondary
+                                    {% else %}bg-primary{% endif %}">{{ a.status }}</span>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="5" class="text-center text-muted py-4">No appointments yet.</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

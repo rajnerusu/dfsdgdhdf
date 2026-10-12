@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% block title %}Meedicoapp - Book OP Appointments Online{% endblock %}
+
+{% block content %}
+<div class="p-5 mb-4 bg-gradient text-white rounded-4 hero-banner">
+    <div class="row align-items-center">
+        <div class="col-lg-7">
+            <h1 class="display-5 fw-bold">Skip the queue. Book your OP visit online.</h1>
+            <p class="fs-5 mb-4">Meedicoapp lets you find the right doctor, pick a convenient slot,
+            and get an instant OP number &mdash; all from your phone or laptop.</p>
+            {% if current_user %}
+                {% if current_user.role == 'patient' %}
+                    <a href="{{ url_for('book_appointment') }}" class="btn btn-light btn-lg fw-semibold">
+                        <i class="bi bi-calendar-plus"></i> Book an Appointment
+                    </a>
+                {% endif %}
+            {% else %}
+                <a href="{{ url_for('register') }}" class="btn btn-light btn-lg fw-semibold me-2">Get Started</a>
+                <a href="{{ url_for('login') }}" class="btn btn-outline-light btn-lg">Login</a>
+            {% endif %}
+        </div>
+        <div class="col-lg-5 text-center d-none d-lg-block">
+            <i class="bi bi-clipboard2-pulse" style="font-size: 10rem; opacity:.85;"></i>
+        </div>
+    </div>
+</div>
+
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-3">
+            <i class="bi bi-search text-primary fs-1"></i>
+            <div class="card-body">
+                <h5 class="card-title">Find a Doctor</h5>
+                <p class="card-text text-muted">Browse specialists across departments with available timings and fees.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-3">
+            <i class="bi bi-calendar-check text-primary fs-1"></i>
+            <div class="card-body">
+                <h5 class="card-title">Book Instantly</h5>
+                <p class="card-text text-muted">Choose a date and time slot and receive an instant OP number by email.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm text-center p-3">
+            <i class="bi bi-shield-check text-primary fs-1"></i>
+            <div class="card-body">
+                <h5 class="card-title">Track & Manage</h5>
+                <p class="card-text text-muted">View, track status, or cancel your appointments anytime from your dashboard.</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3 class="mb-3"><i class="bi bi-people"></i> Our Doctors</h3>
+<div class="row g-4">
+    {% for doctor in doctors %}
+    <div class="col-md-6 col-lg-3">
+        <div class="card h-100 shadow-sm border-0">
+            <div class="card-body">
+                <div class="d-flex align-items-center mb-2">
+                    <i class="bi bi-person-badge fs-2 text-primary me-2"></i>
+                    <div>
+                        <h6 class="mb-0 fw-bold">{{ doctor.name }}</h6>
+                        <span class="badge bg-primary-subtle text-primary-emphasis">{{ doctor.specialization }}</span>
+                    </div>
+                </div>
+                <p class="small text-muted mb-1"><i class="bi bi-building"></i> {{ doctor.department or "General OPD" }}</p>
+                <p class="small text-muted mb-1"><i class="bi bi-clock"></i> {{ doctor.available_days }}, {{ doctor.available_time }}</p>
+                <p class="small text-muted mb-0"><i class="bi bi-currency-rupee"></i> Consultation fee: ₹{{ "%.0f"|format(doctor.fee) }}</p>
+            </div>
+        </div>
+    </div>
+    {% else %}
+    <p class="text-muted">No doctors are available right now. Please check back later.</p>
+    {% endfor %}
+</div>
+{% endblock %}

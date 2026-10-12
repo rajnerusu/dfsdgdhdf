@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SmileCare Clinic - Trusted Healthcare Services</title>
+  <link rel="shortcut icon" href="https://img.icons8.com/?size=100&id=WH6GaM4lwNxH&format=png&color=000000" type="image/x-icon">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    :root {
+      --brand-gradient: linear-gradient(135deg, #07628f 0%, #5e06c2 90%);
+      --brand-primary: #07628f;
+    }
+
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f8fafc;
+      color: #1e293b;
+    }
+
+
+    .brand-logo {
+      display: inline-flex;
+      align-items: center;
+      font-weight: 800;
+      font-size: 1.5rem;
+      letter-spacing: -0.5px;
+      text-decoration: none;
+    }
+    .brand-medico { color: #0284c7; }
+    .brand-app {
+      background: var(--brand-gradient);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+
+    .hero-section {
+      background: linear-gradient(135deg, rgba(7, 98, 143, 0.05) 0%, rgba(94, 6, 194, 0.05) 100%);
+      border-radius: 24px;
+      padding: 40px;
+      border: 1px solid rgba(226, 232, 240, 0.8);
+    }
+
+
+    .hero-img {
+      border-radius: 18px;
+      object-fit: cover;
+      width: 100%;
+      height: 380px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+    }
+
+
+    .feature-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      padding: 20px;
+      text-align: center;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+    }
+
+
+    .service-box {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+    }
+    .service-box:hover {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+      transform: translateY(-4px);
+    }
+    .service-img {
+      height: 160px;
+      object-fit: cover;
+      width: 100%;
+    }
+
+
+    .doctor-card {
+      background: #ffffff;
+      border-radius: 16px;
+      border: 1px solid #e2e8f0;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+    }
+    .doctor-img {
+      width: 100%;
+      height: 260px;
+      object-fit: cover;
+    }
+
+
+    .btn-custom {
+      background: var(--brand-gradient);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-weight: 600;
+    }
+    .btn-custom:hover {
+      opacity: 0.95;
+      color: white;
+      box-shadow: 0 4px 12px rgba(94, 6, 194, 0.25);
+    }
+  </style>
+</head>
+<body>
+
+
+  <nav class="navbar navbar-expand-lg bg-white border-bottom sticky-top py-3">
+    <div class="container">
+      <a class="brand-logo" href="{{ url_for('home') }}">
+        <i class="bi bi-hospital text-primary me-2"></i>
+        <span class="brand-medico">SmileCare</span><span class="brand-app">Clinic</span>
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mx-auto fw-semibold gap-3">
+          <li class="nav-item"><a class="nav-link text-dark" href="#">Home</a></li>
+          <li class="nav-item"><a class="nav-link text-secondary" href="#about">About Us</a></li>
+          <li class="nav-item"><a class="nav-link text-secondary" href="#services">Services</a></li>
+          <li class="nav-item"><a class="nav-link text-secondary" href="#doctors">Doctors</a></li>
+          <li class="nav-item"><a class="nav-link text-secondary" href="#contact">Contact</a></li>
+        </ul>
+        <a href="{{ url_for('op') }}" class="btn btn-custom px-4 py-2">
+          <i class="bi bi-calendar-check me-1"></i> Book Appointment
+        </a>
+      </div>
+    </div>
+  </nav>
+
+
+  <div class="container my-5">
+   
+    <section class="hero-section mb-5">
+      <div class="row align-items-center g-4">
+        <div class="col-lg-6">
+          <span class="badge bg-primary-subtle text-primary fw-bold text-uppercase px-3 py-2 rounded-pill mb-3">
+            Est. 2006 • 20 Years of Care
+          </span>
+          <h1 class="fw-bold display-5 text-dark mb-3">
+            Two Decades of Trusted Care — Where Every Smile Feels Like Family.
+          </h1>
+          <p class="text-muted lead fs-6 mb-4">
+            Serving our community with expert dental, surgical, critical care & multi-specialty medical treatments. Over 20,000+ satisfied patients and counting.
+          </p>
+          <div class="d-flex flex-wrap gap-3">
+            <a href="{{ url_for('op') }}" class="btn btn-custom btn-lg px-4 py-3 fs-6">
+              <i class="bi bi-person-badge me-2"></i> Book OP / Appointment
+            </a>
+            <a href="https://wa.me/" target="_blank" class="btn btn-outline-success btn-lg px-4 py-3 fs-6 fw-semibold">
+              <i class="bi bi-whatsapp me-2"></i> WhatsApp Us
+            </a>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <img src="https://images.unsplash.com/photo-1629909613654-28e377c37b09?auto=format&fit=crop&w=1000&q=80" alt="Clinic Reception" class="hero-img">
+        </div>
+      </div>
+    </section>
+
+
+    <section class="row g-4 mb-5">
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="bi bi-award-fill fs-2 text-primary mb-2"></i>
+          <h5 class="fw-bold m-0">Est. 2006</h5>
+          <p class="small text-muted mb-0">20 years of trusted care</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="bi bi-person-heart fs-2 text-primary mb-2"></i>
+          <h5 class="fw-bold m-0">Multi-Specialist</h5>
+          <p class="small text-muted mb-0">Dual-specialist expert team</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="bi bi-geo-alt-fill fs-2 text-primary mb-2"></i>
+          <h5 class="fw-bold m-0">Local Landmark</h5>
+          <p class="small text-muted mb-0">Opposite City Bus Stand</p>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="feature-card">
+          <i class="bi bi-shield-check fs-2 text-primary mb-2"></i>
+          <h5 class="fw-bold m-0">Trained Staff</h5>
+          <p class="small text-muted mb-0">Certified & caring team</p>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="mb-5" id="services">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold text-dark">Our Medical Services</h2>
+        <p class="text-muted">Comprehensive specialized healthcare departments under one roof</p>
+      </div>
+
+
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="service-box">
+            <img src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=600&q=80" class="service-img" alt="General Surgery">
+            <div class="p-3">
+              <h5 class="fw-bold mb-1"><i class="bi bi-scissors text-primary me-2"></i>General Surgery</h5>
+              <p class="small text-muted mb-0">Advanced minimally invasive laparoscopic & general surgical procedures.</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-4">
+          <div class="service-box">
+            <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Accident & Critical Care">
+            <div class="p-3">
+              <h5 class="fw-bold mb-1"><i class="bi bi-bandaid text-primary me-2"></i>Accident & Critical Care</h5>
+              <p class="small text-muted mb-0">24/7 emergency trauma support and fully equipped ICU management.</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-4">
+          <div class="service-box">
+            <img src="https://images.unsplash.com/photo-1559757175-5700dde675bc?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Neurology">
+            <div class="p-3">
+              <h5 class="fw-bold mb-1"><i class="bi bi-cpu text-primary me-2"></i>Neurology</h5>
+              <p class="small text-muted mb-0">Comprehensive diagnostic and treatment plans for neurological conditions.</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-4">
+          <div class="service-box">
+            <img src="https://images.unsplash.com/photo-1588776814546-1ffcf47267a5?auto=format&fit=crop&w=600&q=80" class="service-img" alt="ENT Care">
+            <div class="p-3">
+              <h5 class="fw-bold mb-1"><i class="bi bi-ear text-primary me-2"></i>ENT Specialist</h5>
+              <p class="small text-muted mb-0">Expert diagnosis and surgical remedies for Ear, Nose, and Throat issues.</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-4">
+          <div class="service-box">
+            <img src="https://images.unsplash.com/photo-1631815588090-d4bfec5b1cdb?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Pediatric Care">
+            <div class="p-3">
+              <h5 class="fw-bold mb-1"><i class="bi bi-person-heart text-primary me-2"></i>Pediatric Care</h5>
+              <p class="small text-muted mb-0">Gentle healthcare services and vaccinations tailored for infants and children.</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-4">
+          <div class="service-box">
+            <img src="https://images.unsplash.com/photo-1606811841689-23dfddce3e95?auto=format&fit=crop&w=600&q=80" class="service-img" alt="Dental Care">
+            <div class="p-3">
+              <h5 class="fw-bold mb-1"><i class="bi bi-emoji-smile text-primary me-2"></i>Odontology & Root Canal</h5>
+              <p class="small text-muted mb-0">Painless root canals, cosmetic dentistry, and complete oral hygiene.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="mb-5" id="doctors">
+      <div class="text-center mb-4">
+        <h2 class="fw-bold text-dark">Meet Our Specialist Doctors</h2>
+        <p class="text-muted">Dedicated medical professionals committed to your wellbeing</p>
+      </div>
+
+
+      <div class="row g-4 justify-content-center">
+        <div class="col-md-5">
+          <div class="doctor-card">
+            <img src="https://images.unsplash.com/photo-1622253692010-333f2da6031d?auto=format&fit=crop&w=600&q=80" class="doctor-img" alt="Dr. Arjun Rao">
+            <div class="p-4">
+              <h4 class="fw-bold mb-1">Dr. Arjun Rao</h4>
+              <p class="text-primary fw-semibold mb-2">BDS, MDS — Chief Odontologist</p>
+              <p class="small text-muted mb-0">18+ years of expertise in cosmetic dentistry, general surgery supervision, and patient-first care.</p>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-5">
+          <div class="doctor-card">
+            <img src="https://images.unsplash.com/photo-1594824813571-2153349a65e7?auto=format&fit=crop&w=600&q=80" class="doctor-img" alt="Dr. Priya Nair">
+            <div class="p-4">
+              <h4 class="fw-bold mb-1">Dr. Priya Nair</h4>
+              <p class="text-primary fw-semibold mb-2">BDS, MDS (Endo) — Co-Founder</p>
+              <p class="small text-muted mb-0">Specialist in painless root canal therapy and pediatric oral care; has treated over 10,000+ patients since 2006.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+  </div>
+
+
+  <footer class="bg-white border-top py-4 mt-5" id="contact">
+    <div class="container d-flex flex-wrap justify-content-between align-items-center gap-3">
+      <div>
+        <span class="fw-bold text-dark">SmileCare Clinic</span> © 2026. All Rights Reserved.
+        <div class="small text-muted">Opposite City Bus Stand, Main Road</div>
+      </div>
+      <div>
+        <a href="{{ url_for('op') }}" class="btn btn-sm btn-custom px-3">Open OP Booking Portal</a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

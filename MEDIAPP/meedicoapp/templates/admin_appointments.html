@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Manage Appointments - Meedicoapp{% endblock %}
+{% block content %}
+<div class="row">
+    <div class="col-lg-3 mb-3">
+        {% include "_admin_sidebar.html" %}
+    </div>
+    <div class="col-lg-9">
+        <div class="d-flex justify-content-between align-items-center mb-3 flex-wrap gap-2">
+            <h3 class="fw-bold mb-0"><i class="bi bi-calendar-week"></i> Manage Appointments</h3>
+            <form class="d-flex gap-2" method="GET">
+                <select name="status" class="form-select form-select-sm" onchange="this.form.submit()">
+                    <option value="">All statuses</option>
+                    {% for s in ['pending', 'confirmed', 'cancelled', 'completed'] %}
+                    <option value="{{ s }}" {% if status_filter == s %}selected{% endif %}>{{ s|capitalize }}</option>
+                    {% endfor %}
+                </select>
+            </form>
+        </div>
+
+        <div class="card border-0 shadow-sm">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>OP #</th><th>Patient</th><th>Doctor</th><th>Date / Time</th><th>Status</th><th class="text-end">Update</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {% for a in appointments %}
+                        <tr>
+                            <td><code>{{ a.op_number }}</code></td>
+                            <td>{{ a.patient_name }}<br><span class="text-muted small">{{ a.patient_email }}</span></td>
+                            <td>{{ a.doctor_name }}<br><span class="text-muted small">{{ a.specialization }}</span></td>
+                            <td>{{ a.appointment_date }}<br><span class="text-muted small">{{ a.appointment_time }}</span></td>
+                            <td>
+                                <span class="badge
+                                    {% if a.status == 'confirmed' %}bg-success
+                                    {% elif a.status == 'pending' %}bg-warning text-dark
+                                    {% elif a.status == 'cancelled' %}bg-secondary
+                                    {% else %}bg-primary{% endif %}">{{ a.status }}</span>
+                            </td>
+                            <td class="text-end">
+                                <form method="POST" action="{{ url_for('admin_update_appointment_status', appointment_id=a.id) }}" class="d-flex gap-1 justify-content-end">
+                                    <select name="status" class="form-select form-select-sm" style="width:auto;">
+                                        {% for s in ['pending', 'confirmed', 'cancelled', 'completed'] %}
+                                        <option value="{{ s }}" {% if a.status == s %}selected{% endif %}>{{ s|capitalize }}</option>
+                                        {% endfor %}
+                                    </select>
+                                    <button class="btn btn-sm btn-primary"><i class="bi bi-check-lg"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr><td colspan="6" class="text-center text-muted py-4">No appointments found.</td></tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
